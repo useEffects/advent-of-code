@@ -7,7 +7,7 @@ export const parser = (filename: string): string => {
 
 const input = parser("input.txt")
 
-const regexPatterns = [
+export const regexPatterns = [
     /^m$/,                    // Matches 'm'
     /^mu$/,                   // Matches 'mu'
     /^mul$/,                  // Matches 'mul'
@@ -25,7 +25,7 @@ for (let i = 0; i < input.length; i++) {
         let k = i + 4
         if (k <= input.length && input.slice(i, k) === "mul(") {
             let j = i + 1
-            for (let l = 0; l < regexPatterns.length && j < input.length; l++) {
+            for (let l = 0; l < regexPatterns.length && j < input.length; l++, j++) {
                 const pattern = regexPatterns[l]
 
                 if (l === 4 || l === 6) {
@@ -42,15 +42,12 @@ for (let i = 0; i < input.length; i++) {
                 else if (!pattern.test(input.slice(i, j))) {
                     break
                 }
-                j++
             }
         }
     }
 }
 
-console.log(ans)
-
-function extractNumbers(input: string): [number, number] {
+export function extractNumbers(input: string): [number, number] {
     const match = input.match(/mul\((\d+),(\d+)\)/)!;
     const [, num1, num2] = match;
     return [parseInt(num1, 10), parseInt(num2, 10)];
